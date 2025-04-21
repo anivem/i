@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anirudh's Glow & Grow Plan 🌱✨</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f9f4;
+      color: #333;
+      padding: 2rem;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #2a7a2e;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, .section {
+      margin: 1rem auto;
+      display: block;
+      max-width: 600px;
+    }
+    .plan {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌞 Anirudh's Daily Glow & Grow Plan 🌞</h1>
+
+  <label for="day">Select the Day:</label>
+  <select id="day">
+    <option value="">-- Choose a day --</option>
+    <option value="mon">Monday</option>
+    <option value="tue">Tuesday</option>
+    <option value="wed">Wednesday</option>
+    <option value="thu">Thursday</option>
+    <option value="fri">Friday</option>
+    <option value="sat">Saturday</option>
+    <option value="sun">Sunday</option>
+  </select>
+
+  <div id="plan" class="plan hidden">
+    <h2 id="dayTitle"></h2>
+    <div class="section" id="midMorning"></div>
+    <div class="section" id="lunch"></div>
+    <div class="section" id="eveningSnack"></div>
+    <div class="section" id="night"></div>
+  </div>
+
+  <script>
+    const plans = {
+      mon: {
+        title: 'Monday',
+        midMorning: 'Warm milk + soaked mahabeera ginjalu + 5 almonds + banana or papaya',
+        lunch: 'Boiled sweet potato + sunflower seeds',
+        eveningSnack: '1–2 boiled eggs + fruit',
+        night: 'Warm milk with jaggery + optional sabja'
+      },
+      tue: {
+        title: 'Tuesday',
+        midMorning: 'Sprouted moong salad + sunflower seeds + sabja lemon water',
+        lunch: 'Chana salad or stir-fry',
+        eveningSnack: 'Roasted chana + dry fruits + jaggery',
+        night: 'Warm milk with turmeric + optional sabja + mahabeera ginjalu'
+      },
+      wed: {
+        title: 'Wednesday',
+        midMorning: 'Apple or orange + flax seeds + sabja water',
+        lunch: 'Paneer curry',
+        eveningSnack: '1–2 boiled eggs + fruit',
+        night: 'Warm milk with jaggery'
+      },
+      thu: {
+        title: 'Thursday',
+        midMorning: 'Warm milk + soaked mahabeera ginjalu + 5 almonds + papaya',
+        lunch: 'Boiled potatoes + flax seeds',
+        eveningSnack: 'Roasted chana + dry fruits + jaggery',
+        night: 'Warm milk with turmeric + sabja optional'
+      },
+      fri: {
+        title: 'Friday',
+        midMorning: 'Sprouted moong salad + sabja buttermilk + sunflower seeds',
+        lunch: 'Paneer curry or skip',
+        eveningSnack: '1–2 boiled eggs + fruit',
+        night: 'Warm milk + jaggery + mahabeera ginjalu'
+      },
+      sat: {
+        title: 'Saturday',
+        midMorning: 'Apple or orange + flax seeds + sabja water',
+        lunch: 'Green gram sundal',
+        eveningSnack: 'Boiled sweet potato + sunflower seeds',
+        night: 'Warm milk + turmeric + sabja optional'
+      },
+      sun: {
+        title: 'Sunday',
+        midMorning: 'Warm milk + soaked mahabeera ginjalu + banana or papaya',
+        lunch: 'Chicken biryani or curry + cucumber raita',
+        eveningSnack: 'Fruit bowl + glass of milk',
+        night: 'Warm milk + jaggery + sabja optional'
+      }
+    };
+
+    document.getElementById('day').addEventListener('change', function () {
+      const value = this.value;
+      const plan = plans[value];
+
+      if (plan) {
+        document.getElementById('plan').classList.remove('hidden');
+        document.getElementById('dayTitle').textContent = plan.title;
+        document.getElementById('midMorning').innerHTML = `<strong>🕘 Mid-Morning:</strong> ${plan.midMorning}`;
+        document.getElementById('lunch').innerHTML = `<strong>🍛 Lunch Boost:</strong> ${plan.lunch}`;
+        document.getElementById('eveningSnack').innerHTML = `<strong>🕓 Evening Snack:</strong> ${plan.eveningSnack}`;
+        document.getElementById('night').innerHTML = `<strong>🌙 Night:</strong> ${plan.night}`;
+      } else {
+        document.getElementById('plan').classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
