@@ -1,143 +1,138 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anirudh's Glow & Grow Nutrition Plan</title>
+  <title>Glow & Grow Plan 🌱✨</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 800px;
-      margin: 30px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    select, h2, ul {
-      margin-bottom: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #2b6777;
-    }
-    h2 {
-      color: #52ab98;
-    }
+    body { font-family: Arial, sans-serif; background: #f0f8ff; margin: 20px; color: #333; }
+    h1, h2 { color: #2e8b57; }
+    select, ul { margin-top: 10px; }
+    .day-plan { margin-top: 20px; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .section-title { margin-top: 20px; color: #4169e1; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Anirudh's Glow & Grow Power Plan</h1>
-    <label for="day">Select Day:</label>
-    <select id="day" onchange="updatePlan()">
-      <option value="mon">Monday</option>
-      <option value="tue">Tuesday</option>
-      <option value="wed">Wednesday</option>
-      <option value="thu">Thursday</option>
-      <option value="fri">Friday</option>
-      <option value="sat">Saturday</option>
-      <option value="sun">Sunday</option>
-    </select><div id="plan"></div>
 
-  </div>  <script>
+  <h1>Glow & Grow Plan 🌱✨</h1>
+  <label for="day-select">Select a day:</label>
+  <select id="day-select" onchange="showPlan()">
+    <option value="">--Choose--</option>
+    <option value="mon">Monday</option>
+    <option value="tue">Tuesday</option>
+    <option value="wed">Wednesday</option>
+    <option value="thu">Thursday</option>
+    <option value="fri">Friday</option>
+    <option value="sat">Saturday</option>
+    <option value="sun">Sunday</option>
+  </select>
+
+  <div id="plan" class="day-plan"></div>
+
+  <script>
     const plans = {
       mon: `
         <h2>Monday</h2>
-        <ul>
-          <li><strong>Pre-Workout (6:00 AM):</strong> Soaked date or banana + 2 soaked almonds + flax seeds</li>
-          <li><strong>Post-Workout (7:30 AM):</strong> Warm milk + mahabeera ginjalu + 1 boiled egg + banana</li>
-          <li><strong>Breakfast:</strong> As per home (idli/dosa/poha)</li>
-          <li><strong>Mid-Morning:</strong> Soaked almonds + fruit + sabja water</li>
-          <li><strong>Lunch:</strong> Regular rice + sweet potato chunks + sunflower seeds</li>
-          <li><strong>Evening Snack:</strong> 2 boiled eggs + orange or banana</li>
-          <li><strong>Dinner:</strong> Regular home meal + salad</li>
-          <li><strong>Night:</strong> Warm milk + turmeric</li>
-        </ul>
+        <p><strong>Mid-Morning (10:30–11:00 AM):</strong><br>
+        - 1 glass warm milk<br>
+        - 1 tsp soaked mahabeera ginjalu<br>
+        - 5 soaked almonds<br>
+        - 1 banana</p>
+        <p><strong>Lunch Add-on:</strong><br>
+        - Boiled sweet potato chunks (1 small) + 1 tsp mixed flax & sunflower seeds</p>
+        <p><strong>Evening Snack (4–5 PM):</strong><br>
+        - 2 boiled eggs + 1 orange + 2 walnuts</p>
+        <p><strong>Night (8:30–9 PM):</strong><br>
+        - 1 glass warm milk + 1 tsp soaked sabja</p>
       `,
       tue: `
         <h2>Tuesday</h2>
-        <ul>
-          <li><strong>Pre-Workout:</strong> Banana + soaked almonds + flax seeds</li>
-          <li><strong>Post-Workout:</strong> Milk + mahabeera ginjalu + boiled egg + papaya</li>
-          <li><strong>Mid-Morning:</strong> Moong sprouts + sunflower seeds + sabja drink</li>
-          <li><strong>Lunch:</strong> Rice + chana salad</li>
-          <li><strong>Evening Snack:</strong> Roasted chana + jaggery + dry fruits</li>
-          <li><strong>Dinner:</strong> Regular + salad</li>
-          <li><strong>Night:</strong> Milk + sabja + mahabeera ginjalu</li>
-        </ul>
+        <p><strong>Mid-Morning:</strong><br>
+        - Sprouted moong salad with lemon<br>
+        - 1 tsp mixed flax & sunflower seeds<br>
+        - Sabja in lemon water</p>
+        <p><strong>Lunch Add-on:</strong><br>
+        - Chana stir-fry (1/2 cup)</p>
+        <p><strong>Evening Snack:</strong><br>
+        - Roasted chana (1 handful) + 2 dates + 1 walnut + 2 cashews</p>
+        <p><strong>Night:</strong><br>
+        - 1 glass warm milk + 1 tsp soaked mahabeera ginjalu</p>
       `,
       wed: `
         <h2>Wednesday</h2>
-        <ul>
-          <li><strong>Pre-Workout:</strong> Soaked almonds + banana</li>
-          <li><strong>Post-Workout:</strong> Milk + mahabeera ginjalu + boiled egg + papaya</li>
-          <li><strong>Mid-Morning:</strong> Apple + flax seeds + sabja</li>
-          <li><strong>Lunch:</strong> Rice + paneer curry</li>
-          <li><strong>Evening Snack:</strong> 2 boiled eggs + fruit</li>
-          <li><strong>Dinner:</strong> Regular + salad</li>
-          <li><strong>Night:</strong> Milk + turmeric</li>
-        </ul>
+        <p><strong>Mid-Morning:</strong><br>
+        - 1 apple + 1 tsp mixed flax & sunflower seeds<br>
+        - Sabja water</p>
+        <p><strong>Lunch Add-on:</strong><br>
+        - Boiled potatoes (1 small)</p>
+        <p><strong>Evening Snack:</strong><br>
+        - 2 boiled eggs + 1 banana + 2 almonds</p>
+        <p><strong>Night:</strong><br>
+        - 1 glass warm milk</p>
       `,
       thu: `
         <h2>Thursday</h2>
-        <ul>
-          <li><strong>Pre-Workout:</strong> Banana + almonds</li>
-          <li><strong>Post-Workout:</strong> Milk + mahabeera ginjalu + boiled egg + banana</li>
-          <li><strong>Mid-Morning:</strong> Soaked almonds + fruit + sabja</li>
-          <li><strong>Lunch:</strong> Rice + boiled potatoes + flax seeds</li>
-          <li><strong>Evening Snack:</strong> Roasted chana + dry fruits</li>
-          <li><strong>Dinner:</strong> Regular + salad</li>
-          <li><strong>Night:</strong> Milk + sabja + mahabeera ginjalu</li>
-        </ul>
+        <p><strong>Mid-Morning:</strong><br>
+        - Warm milk (1 glass) + 1 tsp soaked mahabeera ginjalu<br>
+        - 1 banana + 5 soaked almonds</p>
+        <p><strong>Lunch Add-on:</strong><br>
+        - Boiled potatoes (1 small) + 1 tsp mixed seeds</p>
+        <p><strong>Evening Snack:</strong><br>
+        - Roasted chana (1 handful) + 2 dates + 1 walnut</p>
+        <p><strong>Night:</strong><br>
+        - 1 glass milk + 1 tsp soaked sabja</p>
       `,
       fri: `
         <h2>Friday</h2>
-        <ul>
-          <li><strong>Pre-Workout:</strong> Banana + soaked almonds</li>
-          <li><strong>Post-Workout:</strong> Milk + mahabeera ginjalu + boiled egg + fruit</li>
-          <li><strong>Mid-Morning:</strong> Sprouted salad + sunflower seeds + sabja drink</li>
-          <li><strong>Lunch:</strong> Paneer curry + rice</li>
-          <li><strong>Evening Snack:</strong> 2 boiled eggs + fruit</li>
-          <li><strong>Dinner:</strong> Regular + salad</li>
-          <li><strong>Night:</strong> Milk + turmeric</li>
-        </ul>
+        <p><strong>Mid-Morning:</strong><br>
+        - Sprouted moong salad + 1 tsp seeds<br>
+        - Papaya (1 slice)</p>
+        <p><strong>Lunch Add-on:</strong><br>
+        - Boiled sweet potato (1/2) + seeds</p>
+        <p><strong>Evening Snack:</strong><br>
+        - 2 boiled eggs + 1 apple + 2 cashews</p>
+        <p><strong>Night:</strong><br>
+        - 1 glass milk + sabja</p>
       `,
       sat: `
         <h2>Saturday</h2>
-        <ul>
-          <li><strong>Pre-Workout:</strong> Banana + almonds</li>
-          <li><strong>Post-Workout:</strong> Milk + mahabeera ginjalu + fruit</li>
-          <li><strong>Mid-Morning:</strong> Apple + flax seeds + sabja water</li>
-          <li><strong>Lunch:</strong> Rice + green gram sundal</li>
-          <li><strong>Evening Snack:</strong> Sweet potato + sunflower seeds</li>
-          <li><strong>Dinner:</strong> Regular + salad</li>
-          <li><strong>Night:</strong> Milk + sabja + mahabeera ginjalu</li>
-        </ul>
+        <p><strong>Mid-Morning:</strong><br>
+        - 1 orange + 1 tsp mixed seeds<br>
+        - Sabja water</p>
+        <p><strong>Lunch Add-on:</strong><br>
+        - Green gram sundal (1/2 cup)</p>
+        <p><strong>Evening Snack:</strong><br>
+        - Boiled sweet potato + 1 tsp seeds</p>
+        <p><strong>Night:</strong><br>
+        - Warm milk + soaked mahabeera ginjalu</p>
       `,
       sun: `
         <h2>Sunday</h2>
-        <ul>
-          <li><strong>Pre-Workout:</strong> Banana or date + almonds</li>
-          <li><strong>Post-Workout:</strong> Milk + mahabeera ginjalu + boiled egg + banana</li>
-          <li><strong>Mid-Morning:</strong> Soaked almonds + fruit + sabja</li>
-          <li><strong>Lunch:</strong> Chicken biryani/curry + cucumber raita</li>
-          <li><strong>Evening Snack:</strong> Fruit bowl + milk</li>
-          <li><strong>Dinner:</strong> Regular + salad</li>
-          <li><strong>Night:</strong> Milk + turmeric</li>
-        </ul>
+        <p><strong>Mid-Morning:</strong><br>
+        - Milk (1 glass) + 1 tsp soaked mahabeera ginjalu + 5 almonds<br>
+        - Banana or papaya</p>
+        <p><strong>Lunch:</strong><br>
+        - Chicken biryani or curry + cucumber raita</p>
+        <p><strong>Evening Snack:</strong><br>
+        - Fruit bowl + 1 glass milk</p>
+        <p><strong>Night:</strong><br>
+        - Warm milk + 1 tsp sabja</p>
       `
     };
 
-    function updatePlan() {
-      const day = document.getElementById('day').value;
-      document.getElementById('plan').innerHTML = plans[day];
+    function showPlan() {
+      const day = document.getElementById("day-select").value;
+      document.getElementById("plan").innerHTML = plans[day] || "";
     }
+  </script>
 
-    window.onload = updatePlan;
-  </script></body>
+  <div class="section-title">🔄 Replacements (Use if item not available)</div>
+  <ul>
+    <li><strong>Sweet potato</strong> → Boiled potato or corn</li>
+    <li><strong>Papaya</strong> → Watermelon or mango (small portion)</li>
+    <li><strong>Orange</strong> → Guava or pomegranate</li>
+    <li><strong>Apple</strong> → Banana or pear</li>
+  </ul>
+
+</body>
 </html>
