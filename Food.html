@@ -1,130 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>30-Day Muscle & Height Plan</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        .container {
-            margin: 20px;
-        }
-        .button-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .day-plan {
-            display: none;
-            margin-top: 20px;
-        }
-        .day-plan.active {
-            display: block;
-        }
-        .plan-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .plan-content {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muscle & Height Growth Plan - Day 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 10px;
+      text-align: center;
+    }
+    .container {
+      margin: 20px auto;
+      max-width: 700px;
+    }
+    .plan-title {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      margin-bottom: 10px;
+    }
+    .plan-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+    }
+    .highlight {
+      font-weight: bold;
+      color: #4CAF50;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #e0e0e0;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>30-Day Muscle & Height Growth Plan</h1>
-    </header>
+  <header>
+    <h1>30-Day Muscle & Height Growth Plan</h1>
+  </header>
 
-    <div class="container">
-        <div class="button-container">
-            <button onclick="showPlan('day1')">Day 1</button>
-            <button onclick="showPlan('day2')">Day 2</button>
-            <button onclick="showPlan('day3')">Day 3</button>
-            <button onclick="showPlan('day4')">Day 4</button>
-            <button onclick="showPlan('day5')">Day 5</button>
-            <button onclick="showPlan('day6')">Day 6</button>
-            <button onclick="showPlan('day7')">Day 7</button>
-            <!-- Add more buttons for each day as needed -->
-        </div>
+  <div class="container">
+    <div class="plan-title">️</div>
+    <div class="plan-content">
+      <p><strong>🌅 Morning Routine (Pre-Workout: 6:00 – 6:30 AM)</strong><br>
+        - 🥛 1 glass warm water + soaked: 5 almonds, 2 walnuts, 2 dates<br>
+        - 🍌 1 banana OR 2 dates<br>
+        - 🌻 1 tsp soaked <span class="highlight">flax + sunflower seed mix</span><br>
+        - 🌿 1 tsp <span class="highlight">Mahabeera Ginjalu seeds</span> (soaked)<br>
+        - 🌿 Optional: 1 tsp ajwain in warm water
+      </p>
 
-        <div id="day1" class="day-plan">
-            <div class="plan-title">Day 1</div>
-            <div class="plan-content">
-                <p><strong>Morning Routine (Pre-Workout - 6:00 to 6:30 AM):</strong><br>
-                    - 1 glass of warm water with soaked 5 almonds + 2 walnuts<br>
-                    - 1 banana OR 2 dates<br>
-                    - 1 tsp soaked flax and sunflower seeds mix<br>
-                    - Optional: 1 tsp ajwain in warm water</p>
-                <p><strong>Post-Workout Breakfast (8:00 to 8:30 AM):</strong><br>
-                    - 2 boiled eggs (whole)<br>
-                    - 1 bowl of oats (prepared with water or milk) + 1 tsp flax/sunflower seed mix<br>
-                    - 1 glass of milk with a pinch of turmeric + honey<br>
-                    - 1 fruit (banana, mango, or papaya)</p>
-                <p><strong>Mid-Morning Snack (10:30 to 11:00 AM):</strong><br>
-                    - 1 handful of mixed dry fruits: 2 dates, 5 almonds, 2 cashews, 3-4 walnuts<br>
-                    - 1 glass of milk (optional)<br>
-                    - Soaked Sabja seeds (1 tsp)</p>
-                <p><strong>Evening Snack (4:00–5:00 PM):</strong><br>
-                    - 1-2 boiled eggs (or 1 boiled egg + fruit)<br>
-                    - 1 small bowl of roasted chana + 1 small piece of jaggery<br>
-                    - Handful of roasted flax/sunflower seeds mix<br>
-                    - Soanp</p>
-                <p><strong>Before Bed (9:30 PM - 10:00 PM):</strong><br>
-                    - 1 glass of warm milk with 1 tsp ghee<br>
-                    - 1 tsp soaked sabja seeds</p>
-            </div>
-        </div>
+      <p><strong>🍳 Post-Workout Breakfast (8:00 – 8:30 AM)</strong><br>
+        - 🥚 2 boiled eggs (whole)<br>
+        - 🥔 1 boiled potato OR 1 small <span class="highlight">sweet potato</span><br>
+        - 🥛 1 glass milk with turmeric + honey<br>
+        - 🍌 1 fruit (banana, papaya, or mango)<br>
+        - 🌱 Small bowl of <span class="highlight">boiled sprouts + spinach</span>
+      </p>
 
-        <!-- Add more days here -->
-        <div id="day2" class="day-plan">
-            <div class="plan-title">Day 2</div>
-            <div class="plan-content">
-                <!-- Insert Day 2 plan here -->
-            </div>
-        </div>
+      <p><strong>⛅ Mid-Morning Snack (10:30 – 11:00 AM)</strong><br>
+        - 🥜 Mixed dry fruits: 2 dates, 5 almonds, 2 cashews, 3 walnuts, 1 tsp <span class="highlight">peanuts</span><br>
+        - 🥛 Optional: 1 glass of milk<br>
+        - 🌿 1 tsp soaked <span class="highlight">Sabja seeds</span><br>
+        - 🥬 Salad of raw <span class="highlight">spinach + broccoli</span> with lemon
+      </p>
 
-        <!-- More days as needed -->
+      <p><strong>⚽ Evening Snack (4:00 – 5:00 PM)</strong><br>
+        - 🥚 1 boiled egg OR fruit + dry fruits<br>
+        - 🧂 1 bowl <span class="highlight">roasted chana</span> + 1 tsp jaggery<br>
+        - 🌻 1 tsp roasted flax/sunflower seed mix<br>
+        - 🌿 Soanp (mouth freshener)
+      </p>
 
+      <p><strong>🌙 Before Bed (9:30 – 10:00 PM)</strong><br>
+        - 🥛 1 glass of warm milk + 1 tsp ghee<br>
+        - 🌿 1 tsp soaked <span class="highlight">Mahabeera Ginjalu seeds</span>
+      </p>
     </div>
+  </div>
 
-    <script>
-        function showPlan(day) {
-            // Hide all day plans
-            var plans = document.querySelectorAll('.day-plan');
-            for (var i = 0; i < plans.length; i++) {
-                plans[i].classList.remove('active');
-            }
-
-            // Show the selected day's plan
-            document.getElementById(day).classList.add('active');
-        }
-    </script>
+  <footer>
+    Made with 💪 by Anirudh Vempati | RoboCoder 🚀
+  </footer>
 
 </body>
 </html>
