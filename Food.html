@@ -1,240 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glow & Grow Nutrition Navigator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    h1, h2 {
-      color: #444;
-    }
-    select, .section {
-      background: #fff;
-      padding: 10px;
-      margin: 15px 0;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-    .section ul {
-      padding-left: 20px;
-    }
-    #highlight {
-      background: #e6ffe6;
-      border: 2px dashed #33cc33;
-      padding: 10px;
-      margin-top: 20px;
-      border-radius: 8px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day Muscle & Height Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            margin: 20px;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .day-plan {
+            display: none;
+            margin-top: 20px;
+        }
+        .day-plan.active {
+            display: block;
+        }
+        .plan-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .plan-content {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-  <h1>🍽️ Glow & Grow Plan – Nutrition Navigator</h1>
-  <label for="daySelect">Select Day:</label>
-  <select id="daySelect" onchange="updatePlan()">
-    <option value="Monday">Monday</option>
-    <option value="Tuesday">Tuesday</option>
-    <option value="Wednesday">Wednesday</option>
-    <option value="Thursday">Thursday</option>
-    <option value="Friday">Friday</option>
-    <option value="Saturday">Saturday</option>
-    <option value="Sunday">Sunday</option>
-  </select>
 
-  <div id="plan" class="section"></div>
-  <div id="highlight" class="section"></div>
-  <div class="section">
-    <h2>🔁 Replacements</h2>
-    <ul>
-      <li>Papaya → Watermelon / Musk melon</li>
-      <li>Sweet potato → Boiled potato</li>
-      <li>Orange → Guava / Pomegranate</li>
-      <li>Apple → Pear / Banana</li>
-    </ul>
-  </div>
+    <header>
+        <h1>30-Day Muscle & Height Growth Plan</h1>
+    </header>
 
-  <script>
-    const plans = {
-      Monday: `
-        <h2>🕘 Mid-Morning</h2>
-        <ul>
-          <li>1 glass warm milk</li>
-          <li>1 tsp soaked mahabeera ginjalu</li>
-          <li>5 soaked almonds</li>
-          <li>1 banana or papaya</li>
-        </ul>
-        <h2>🍛 Lunch Add-Ons</h2>
-        <ul>
-          <li>Boiled sweet potato chunks</li>
-          <li>1 tsp mixed flax & sunflower seeds</li>
-        </ul>
-        <h2>🕓 Evening Snack</h2>
-        <ul>
-          <li>2 boiled eggs</li>
-          <li>1 orange or banana</li>
-        </ul>
-        <h2>🌙 Night</h2>
-        <ul>
-          <li>1 glass warm milk with jaggery</li>
-        </ul>
-      `,
-      Tuesday: `
-        <h2>🕘 Mid-Morning</h2>
-        <ul>
-          <li>Sprouted moong salad with lemon</li>
-          <li>1 tsp mixed flax & sunflower seeds</li>
-          <li>Sabja in lemon water or buttermilk</li>
-        </ul>
-        <h2>🍛 Lunch Add-Ons</h2>
-        <ul>
-          <li>Chana salad or stir-fry with lemon</li>
-        </ul>
-        <h2>🕓 Evening Snack</h2>
-        <ul>
-          <li>Handful of roasted chana</li>
-          <li>1 tsp jaggery + 5 soaked raisins</li>
-        </ul>
-        <h2>🌙 Night</h2>
-        <ul>
-          <li>1 glass warm milk with 1 tsp mahabeera ginjalu + jaggery</li>
-        </ul>
-      `,
-      Wednesday: `
-        <h2>🕘 Mid-Morning</h2>
-        <ul>
-          <li>1 apple or orange</li>
-          <li>1 tsp mixed flax & sunflower seeds</li>
-          <li>Sabja water</li>
-        </ul>
-        <h2>🍛 Lunch Add-Ons</h2>
-        <ul>
-          <li>Boiled potato</li>
-        </ul>
-        <h2>🕓 Evening Snack</h2>
-        <ul>
-          <li>2 boiled eggs</li>
-          <li>1 orange or banana</li>
-        </ul>
-        <h2>🌙 Night</h2>
-        <ul>
-          <li>1 glass warm milk with turmeric</li>
-        </ul>
-      `,
-      Thursday: `
-        <h2>🕘 Mid-Morning</h2>
-        <ul>
-          <li>1 glass warm milk</li>
-          <li>1 tsp soaked mahabeera ginjalu</li>
-          <li>5 soaked almonds</li>
-          <li>1 banana or papaya</li>
-        </ul>
-        <h2>🍛 Lunch Add-Ons</h2>
-        <ul>
-          <li>Boiled sweet potato chunks</li>
-          <li>1 tsp mixed flax & sunflower seeds</li>
-        </ul>
-        <h2>🕓 Evening Snack</h2>
-        <ul>
-          <li>Handful of roasted chana</li>
-          <li>Jaggery + 3 soaked cashews or walnuts</li>
-        </ul>
-        <h2>🌙 Night</h2>
-        <ul>
-          <li>1 glass warm milk with sabja + mahabeera ginjalu</li>
-        </ul>
-      `,
-      Friday: `
-        <h2>🕘 Mid-Morning</h2>
-        <ul>
-          <li>Moong sprout salad</li>
-          <li>1 tsp mixed flax & sunflower seeds</li>
-          <li>Buttermilk + sabja</li>
-        </ul>
-        <h2>🍛 Lunch Add-Ons</h2>
-        <ul>
-          <li>Boiled sweet potato or potato chunks</li>
-        </ul>
-        <h2>🕓 Evening Snack</h2>
-        <ul>
-          <li>2 boiled eggs</li>
-          <li>Banana or apple</li>
-        </ul>
-        <h2>🌙 Night</h2>
-        <ul>
-          <li>Warm milk with turmeric or jaggery</li>
-        </ul>
-      `,
-      Saturday: `
-        <h2>🕘 Mid-Morning</h2>
-        <ul>
-          <li>1 orange or apple</li>
-          <li>1 tsp mixed flax & sunflower seeds</li>
-          <li>Sabja water</li>
-        </ul>
-        <h2>🍛 Lunch Add-Ons</h2>
-        <ul>
-          <li>Green gram sundal</li>
-        </ul>
-        <h2>🕓 Evening Snack</h2>
-        <ul>
-          <li>Boiled sweet potato + sunflower seeds</li>
-        </ul>
-        <h2>🌙 Night</h2>
-        <ul>
-          <li>Warm milk with sabja + 1 tsp mahabeera ginjalu</li>
-        </ul>
-      `,
-      Sunday: `
-        <h2>🕘 Mid-Morning</h2>
-        <ul>
-          <li>1 glass warm milk</li>
-          <li>1 tsp soaked mahabeera ginjalu</li>
-          <li>5 soaked almonds</li>
-          <li>Banana or papaya</li>
-        </ul>
-        <h2>🍛 Lunch Add-Ons</h2>
-        <ul>
-          <li>Chicken biryani or curry</li>
-          <li>Cucumber or onion salad</li>
-        </ul>
-        <h2>🕓 Evening Snack</h2>
-        <ul>
-          <li>Fruit bowl</li>
-          <li>1 glass milk</li>
-        </ul>
-        <h2>🌙 Night</h2>
-        <ul>
-          <li>Warm milk with jaggery</li>
-        </ul>
-      `
-    };
+    <div class="container">
+        <div class="button-container">
+            <button onclick="showPlan('day1')">Day 1</button>
+            <button onclick="showPlan('day2')">Day 2</button>
+            <button onclick="showPlan('day3')">Day 3</button>
+            <button onclick="showPlan('day4')">Day 4</button>
+            <button onclick="showPlan('day5')">Day 5</button>
+            <button onclick="showPlan('day6')">Day 6</button>
+            <button onclick="showPlan('day7')">Day 7</button>
+            <!-- Add more buttons for each day as needed -->
+        </div>
 
-    function updatePlan() {
-      const day = document.getElementById("daySelect").value;
-      document.getElementById("plan").innerHTML = plans[day];
-      document.getElementById("highlight").innerHTML = `<strong>👟 Special Fitness Highlight:</strong><br>` + getFitnessHighlight(day);
-    }
+        <div id="day1" class="day-plan">
+            <div class="plan-title">Day 1</div>
+            <div class="plan-content">
+                <p><strong>Morning Routine (Pre-Workout - 6:00 to 6:30 AM):</strong><br>
+                    - 1 glass of warm water with soaked 5 almonds + 2 walnuts<br>
+                    - 1 banana OR 2 dates<br>
+                    - 1 tsp soaked flax and sunflower seeds mix<br>
+                    - Optional: 1 tsp ajwain in warm water</p>
+                <p><strong>Post-Workout Breakfast (8:00 to 8:30 AM):</strong><br>
+                    - 2 boiled eggs (whole)<br>
+                    - 1 bowl of oats (prepared with water or milk) + 1 tsp flax/sunflower seed mix<br>
+                    - 1 glass of milk with a pinch of turmeric + honey<br>
+                    - 1 fruit (banana, mango, or papaya)</p>
+                <p><strong>Mid-Morning Snack (10:30 to 11:00 AM):</strong><br>
+                    - 1 handful of mixed dry fruits: 2 dates, 5 almonds, 2 cashews, 3-4 walnuts<br>
+                    - 1 glass of milk (optional)<br>
+                    - Soaked Sabja seeds (1 tsp)</p>
+                <p><strong>Evening Snack (4:00–5:00 PM):</strong><br>
+                    - 1-2 boiled eggs (or 1 boiled egg + fruit)<br>
+                    - 1 small bowl of roasted chana + 1 small piece of jaggery<br>
+                    - Handful of roasted flax/sunflower seeds mix<br>
+                    - Soanp</p>
+                <p><strong>Before Bed (9:30 PM - 10:00 PM):</strong><br>
+                    - 1 glass of warm milk with 1 tsp ghee<br>
+                    - 1 tsp soaked sabja seeds</p>
+            </div>
+        </div>
 
-    function getFitnessHighlight(day) {
-      const highlights = {
-        Monday: "Power Start – Fuel muscle repair with almonds and banana before your vertical jumps!",
-        Tuesday: "Lean & Clean – Moong + sabja + chana = lean muscle magic post agility drills.",
-        Wednesday: "Fiber Fuel – Apples + sabja water = perfect duo for endurance on the field.",
-        Thursday: "Strength Boost – Protein + soaked nuts = your secret weapon for explosive kicks!",
-        Friday: "Golden Gains – Turmeric milk + sprouts = the anti-inflammatory power duo.",
-        Saturday: "Sundal Surge – Green gram to pack strength in your calf muscle sprints.",
-        Sunday: "Recharge Day – Almonds + chicken + milk = perfect mix for muscle recovery."
-      };
-      return highlights[day];
-    }
+        <!-- Add more days here -->
+        <div id="day2" class="day-plan">
+            <div class="plan-title">Day 2</div>
+            <div class="plan-content">
+                <!-- Insert Day 2 plan here -->
+            </div>
+        </div>
 
-    // Default display
-    updatePlan();
-  </script>
+        <!-- More days as needed -->
+
+    </div>
+
+    <script>
+        function showPlan(day) {
+            // Hide all day plans
+            var plans = document.querySelectorAll('.day-plan');
+            for (var i = 0; i < plans.length; i++) {
+                plans[i].classList.remove('active');
+            }
+
+            // Show the selected day's plan
+            document.getElementById(day).classList.add('active');
+        }
+    </script>
+
 </body>
 </html>
