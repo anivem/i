@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baby Cry Analyzer</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe6f0, #e6f2ff);
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 50px;
+      color: #444;
+    }
+    h1 {
+      font-size: 3em;
+      color: #ff6699;
+      margin-bottom: 20px;
+    }
+    #output {
+      font-size: 2.2em;
+      font-weight: 600;
+      margin-top: 30px;
+      color: #333399;
+    }
+    .info {
+      font-size: 1.1em;
+      margin-top: 15px;
+      color: #555;
+      padding: 0 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .btn {
+      font-size: 1.2em;
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      background-color: #add8e6;
+      color: #333;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #87ceeb;
+      transform: scale(1.05);
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .disclaimer {
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>👶 Baby Cry Analyzer</h1>
+  <button class="btn" onclick="startListening()">Start Listening</button>
+  <div id="output" class="fade-in"></div>
+  <div class="info fade-in" id="info"></div>
+  <button class="btn" onclick="retry()" style="display:none;" id="retryBtn">🔁 Retry</button>
+  <div class="disclaimer">
+    🤖 This tool uses AI predictions based on sound, and while it’s designed to help, it's not 100% accurate. Please use it as a guide and consult your pediatrician when in doubt. We’re here to help—not replace your instincts! ❤️
+  </div>
+
+  <script>
+    const MODEL_URL = "https://teachablemachine.withgoogle.com/models/OrDGmGfnU/";
+    let recognizer;
+    let classLabels = [];
+    let resultsCounter = {};
+    let listening = false;
+    let output = document.getElementById("output");
+    let info = document.getElementById("info");
+    let retryBtn = document.getElementById("retryBtn");
+
+    async function loadModel() {
+      const checkpointURL = MODEL_URL + "model.json";
+      const metadataURL = MODEL_URL + "metadata.json";
+      recognizer = speechCommands.create("BROWSER_FFT", undefined, checkpointURL, metadataURL);
+      await recognizer.ensureModelLoaded();
+      classLabels = recognizer.wordLabels();
+      resetCounter();
+    }
+
+    function resetCounter() {
+      resultsCounter = {};
+      classLabels.forEach(label => resultsCounter[label] = 0);
+    }
+
+    function startListening() {
+      output.innerText = "Listening for 10 seconds...";
+      info.innerText = "";
+      retryBtn.style.display = "none";
+      resetCounter();
+
+      recognizer.listen(result => {
+        const scores = result.scores;
+        let topIdx = scores.indexOf(Math.max(...scores));
+        let topLabel = classLabels[topIdx];
+        resultsCounter[topLabel]++;
+      }, {
+        includeSpectrogram: false,
+        probabilityThreshold: 0.75,
+        overlapFactor: 0.5
+      });
+
+      listening = true;
+      setTimeout(stopAndDisplayResult, 10000);
+    }
+
+    function stopAndDisplayResult() {
+      recognizer.stopListening();
+      listening = false;
+      let totalCount = Object.values(resultsCounter).reduce((a, b) => a + b, 0);
+      let maxEntry = Object.entries(resultsCounter).reduce((a, b) => a[1] > b[1] ? a : b);
+      let maxLabel = maxEntry[0];
+      let maxCount = maxEntry[1];
+
+      if ((maxCount / totalCount) > 0.5) {
+        displayReason(maxLabel);
+      } else {
+        output.innerText = "Couldn’t identify a clear reason. Try again!";
+        info.innerText = "It’s possible there was too much background noise or the cry didn’t match a strong pattern.";
+      }
+
+      retryBtn.style.display = "inline-block";
+    }
+
+    function displayReason(label) {
+      const reasons = {
+        hungry: {
+          text: "Your baby might be feeling hungry 🍼",
+          cure: "Try offering a feeding. Whether it's a bottle or breastfeeding, a little nourishment can go a long way."
+        },
+        burp: {
+          text: "Looks like your baby needs a burp 💨",
+          cure: "Hold your baby upright and gently pat their back. Burping can relieve built-up pressure in their tiny tummy."
+        },
+        tired: {
+          text: "Your baby seems tired 😴",
+          cure: "Create a cozy space, dim the lights, and hum a soft lullaby. A little rocking can send them into dreamland."
+        },
+        uncomfortable: {
+          text: "Your baby might be uncomfortable 👕🧷",
+          cure: "Check for any tight clothes, a wet diaper, or even something itchy. Comfort is key."
+        },
+        stomachachecrampsgas: {
+          text: "Uh oh! Your baby may have gas, cramps, or a tummy ache 🤕",
+          cure: "Gently bicycle their legs, give them tummy time, or try a warm compress. A little massage can also do wonders."
+        },
+        sleepy: {
+          text: "Your baby might be feeling sleepy 💤",
+          cure: "Wind things down with a bedtime routine. Keep the environment calm, cool, and cuddly."
+        },
+        BackgroundNoise: {
+          text: "Only background noise detected 🔇",
+          cure: "Looks like everything’s peaceful for now. Enjoy the quiet moments!"
+        }
+      };
+
+      if (reasons[label]) {
+        output.innerText = reasons[label].text;
+        info.innerText = reasons[label].cure;
+      } else {
+        output.innerText = "Unknown sound detected";
+        info.innerText = "We couldn’t match the sound. Please try again.";
+      }
+    }
+
+    function retry() {
+      output.innerText = "";
+      info.innerText = "";
+      retryBtn.style.display = "none";
+      startListening();
+    }
+
+    loadModel();
+  </script>
+</body>
+</html>
