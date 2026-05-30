@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anirudh Music</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#121212;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px}
+.player{width:340px;background:#1b1b1b;border-radius:20px;padding:18px;box-shadow:0 0 25px rgba(0,0,0,.6)}
+.cover{height:220px;border-radius:15px;background:linear-gradient(135deg,#444,#222);display:flex;justify-content:center;align-items:center;font-size:80px;margin-bottom:15px}
+.song-title{text-align:center;font-size:18px;font-weight:bold}
+.song-number{text-align:center;font-size:12px;color:#aaa;margin:6px 0 15px}
+input[type=range]{width:100%}
+.time{display:flex;justify-content:space-between;font-size:12px;color:#aaa;margin-top:4px}
+.controls{display:flex;justify-content:center;gap:12px;margin-top:20px}
+.controls button{border:none;background:#333;color:#fff;border-radius:50%}
+.small{width:45px;height:45px;font-size:18px}
+.play{width:65px;height:65px;font-size:26px}
+.options{display:flex;justify-content:center;gap:10px;margin-top:15px}
+.options button,.timerbtn{padding:8px 12px;border:none;border-radius:8px;background:#333;color:white}
+.section{margin-top:15px}
+.playlist{margin-top:15px;height:180px;overflow:auto;background:#111;border-radius:10px}
+.track{padding:10px;border-bottom:1px solid #222;cursor:pointer}
+.active{background:#333}
+select{width:100%;padding:8px;background:#222;color:#fff;border:none;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="player">
+<div class="cover">🎵</div>
+<div class="song-title" id="title">Song 0</div>
+<div class="song-number" id="count">Track 1 of 75</div>
+
+<input id="seek" type="range" value="0">
+<div class="time"><span id="cur">0:00</span><span id="dur">0:00</span></div>
+
+<div class="controls">
+<button class="small" onclick="prevSong()">⏮</button>
+<button class="play" id="playBtn" onclick="playPause()">▶</button>
+<button class="small" onclick="nextSong()">⏭</button>
+</div>
+
+<div class="options">
+<button onclick="toggleShuffle()">🔀 Shuffle</button>
+<button onclick="toggleRepeat()">🔁 Loop</button>
+</div>
+
+<div class="section">
+Volume
+<input type="range" min="0" max="1" step="0.1" value="1" oninput="audio.volume=this.value">
+</div>
+
+<div class="section">
+<select id="sleep">
+<option value="0">Sleep Timer Off</option>
+<option value="5">5 Minutes</option>
+<option value="10">10 Minutes</option>
+<option value="15">15 Minutes</option>
+<option value="30">30 Minutes</option>
+<option value="60">60 Minutes</option>
+</select>
+<br><br>
+<button class="timerbtn" style="width:100%" onclick="setSleep()">Set Timer</button>
+</div>
+
+<div class="playlist" id="playlist"></div>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+var playlist=[];
+for(var i=0;i<=74;i++){
+ playlist.push("https://anivem.github.io/i/"+i+".mp3");
+}
+
+var audio=document.getElementById("audio");
+var current=0,shuffle=false,repeat=false;
+
+function loadSong(i){
+ current=i;
+ audio.src=playlist[i];
+ document.getElementById("title").innerHTML="Song "+i;
+ document.getElementById("count").innerHTML="Track "+(i+1)+" of 75";
+ highlight();
+}
+
+function playPause(){
+ if(audio.paused){audio.play();playBtn.innerHTML="⏸";}
+ else{audio.pause();playBtn.innerHTML="▶";}
+}
+
+function nextSong(){
+ current=shuffle?Math.floor(Math.random()*75):(current+1)%75;
+ loadSong(current);audio.play();playBtn.innerHTML="⏸";
+}
+
+function prevSong(){
+ current=current-1<0?74:current-1;
+ loadSong(current);audio.play();playBtn.innerHTML="⏸";
+}
+
+function toggleShuffle(){shuffle=!shuffle;}
+function toggleRepeat(){repeat=!repeat;}
+
+audio.onended=function(){ if(repeat) audio.play(); else nextSong(); };
+
+audio.ontimeupdate=function(){
+ seek.max=audio.duration||0;
+ seek.value=audio.currentTime||0;
+ cur.innerHTML=format(audio.currentTime);
+ dur.innerHTML=format(audio.duration);
+};
+
+seek.oninput=function(){audio.currentTime=this.value;};
+
+function format(s){
+ if(isNaN(s)) return "0:00";
+ var m=Math.floor(s/60), ss=Math.floor(s%60);
+ if(ss<10) ss="0"+ss;
+ return m+":"+ss;
+}
+
+function setSleep(){
+ var m=document.getElementById("sleep").value;
+ if(m>0) setTimeout(function(){audio.pause();playBtn.innerHTML="▶";},m*60000);
+}
+
+var list=document.getElementById("playlist");
+for(let i=0;i<75;i++){
+ var d=document.createElement("div");
+ d.className="track";
+ d.innerHTML="🎵 Song "+i;
+ d.onclick=function(){loadSong(i);audio.play();playBtn.innerHTML="⏸";};
+ list.appendChild(d);
+}
+
+function highlight(){
+ var t=document.getElementsByClassName("track");
+ for(var i=0;i<t.length;i++) t[i].className="track";
+ if(t[current]) t[current].className="track active";
+}
+
+loadSong(0);
+</script>
+</body>
+</html>
